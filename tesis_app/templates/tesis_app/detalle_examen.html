@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalles del Examen{% endblock %}
+
+{% block content %}
+<h2>Detalles del Examen</h2>
+<p><strong>Fecha de Síntomas:</strong> {{ examen.fsintomas }}</p>
+<p><strong>Resultado:</strong> {{ examen.resultado }}</p>
+<p><strong>Fiebre:</strong> {{ examen.fiebre }}</p>
+<p><strong>Dolor de articulaciones:</strong> {{ examen.dolor_articulaciones }}</p>
+<p><strong>Otros Síntomas:</strong> {{ examen.otros }}</p>
+<!-- Agrega más campos según lo necesites -->
+<a href="{% url 'historial' %}">Volver al Historial</a>
+{% endblock %}

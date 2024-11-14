@@ -1,0 +1,55 @@
+/* Estilos generales para el cuerpo */
+
+
+/* Estilo del título */
+h2 {
+    margin-bottom: 20px; /* Espacio inferior */
+    font-weight: bold;
+    color: #f8f9fa;
+}
+
+/* Estilo de la tabla */
+.table {
+    margin-top: 20px; /* Espacio superior */
+    border-collapse: collapse; /* Colapsar bordes */
+    font-size: 20px;
+}
+
+/* Estilo de las celdas de la tabla */
+.table th, .table td {
+    padding: 15px; /* Espacio interno */
+    text-align: left; /* Alinear texto a la izquierda */
+    border-bottom: 1px solid #196fc5; /* Borde inferior */
+}
+.table th{
+    background-color: #084480c0;
+    color: white;
+    font-weight: bold;
+    
+}
+
+.table td {
+    background-color: rgba(240, 248, 255, 0.74);
+}
+/* Estilo para el mensaje de "no hay exámenes" */
+.table td[colspan="3"] {
+    text-align: center; /* Centrar el texto */
+    color: #6c757d; /* Color gris claro */
+}
+
+/* Estilo para los paneles de los gráficos */
+.card {
+    margin-bottom: 20px; /* Espacio inferior entre tarjetas */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .table {
+        font-size: 14px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+    }
+}
+
+.table-responsive {
+    overflow-x: auto; /* Habilita el desplazamiento horizontal */
+    -webkit-overflow-scrolling: touch; /* Mejora el desplazamiento en dispositivos táctiles */
+}

@@ -1,0 +1,55 @@
+/* Estilos generales para el cuerpo */
+body {
+    
+    font-family: Arial, sans-serif; /* Fuente básica */
+    background: linear-gradient(rgba(17, 195, 226, 0.363), rgba(12, 128, 236, 0.432)), url("../img/facha.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    
+}
+
+/* Estilo de la barra de navegación */
+.navbar {
+    margin-bottom: 20px; /* Espacio inferior de la barra de navegación */
+}
+
+/* Estilo para el contenedor del contenido */
+.container1 {
+    max-width: 1200px; /* Ancho máximo para el contenedor */
+    margin: 0 auto; /* Centrar el contenedor en la página */
+    padding: 15px; /* Espacios internos */
+    text-align: center;
+}
+
+/* Estilo del pie de página */
+.footer {
+    background-color: #1864c7; /* Fondo del pie de página */
+    text-align: center; /* Centrar texto */
+    padding: 10px 0; /* Espacios internos */
+    color: aliceblue;
+    font-weight: bold;
+}
+
+/* Estilo para los botones de cerrar sesión */
+button {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    color: #007bff; /* Color del texto */
+    cursor: pointer; /* Cambiar cursor al pasar */
+}
+
+/* Cambiar el color del botón al pasar el mouse */
+button:hover {
+    color: #0056b3; /* Color más oscuro al pasar */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .navbar {
+        text-align: center; /* Centrar items de la navbar en pantallas pequeñas */
+    }
+    .footer {
+        text-align: center; /* Asegurarse que el pie de página esté centrado */
+    }
+}

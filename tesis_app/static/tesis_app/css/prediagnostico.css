@@ -1,0 +1,148 @@
+/* Estilos generales para el cuerpo */
+
+/* Estilo del contenedor principal */
+.container {
+    display: flex; /* Usar flexbox para alineación */
+    flex-wrap: nowrap; /* No permitir que los elementos se envuelvan */
+    max-width: 1300px; /* Ancho máximo del contenedor */
+    margin: 20px auto; /* Centrar el contenedor */
+    padding: 20px; /* Espacio interno */
+    background: #ffffff00; /* Fondo blanco */
+    border-radius: 5px; /* Bordes redondeados */
+    /* Sombra sutil */
+    
+}
+
+/* Estilo del contenedor del formulario */
+.form-container {
+    flex: 2; /* Aumentar el espacio que ocupa */
+    min-width: 300px; /* Ancho mínimo para pantallas pequeñas */
+    margin-right: 20px; /* Espacio a la derecha */
+}
+
+/* Estilo del contenedor de la imagen */
+.image-container {
+    flex: 1; /* Toma el espacio disponible */
+    min-width: 300px; /* Ancho mínimo para pantallas pequeñas */
+    margin-top: 50px;
+}
+
+/* Asegurarse de que la imagen sea responsiva */
+.image-container img {
+    max-width: 100%; /* Ajustar el ancho máximo */
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+/* Estilo de los elementos del formulario */
+h1, h3 {
+    color: #007bff; /* Color azul para títulos */
+    font-weight: bold;
+}
+
+/* Títulos responsivos */
+h1 {
+    font-size: 2.5rem; /* Tamaño base para pantallas grandes */
+}
+
+h3 {
+    font-size: 1.75rem; /* Tamaño base para pantallas grandes */
+}
+
+/* Ajustes para pantallas medianas */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem; /* Tamaño reducido para pantallas medianas */
+    }
+
+    h3 {
+        font-size: 1.5rem; /* Tamaño reducido para pantallas medianas */
+    }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.75rem; /* Tamaño aún más reducido para pantallas pequeñas */
+    }
+
+    h3 {
+        font-size: 1.25rem; /* Tamaño aún más reducido para pantallas pequeñas */
+    }
+}
+
+label {
+    font-weight: bold; /* Negrita para etiquetas */
+}
+
+/* Espaciado entre los elementos del formulario */
+div {
+    margin-bottom: 15px; /* Espacio inferior para cada div */
+}
+
+/* Estilo para los checkboxes y sus etiquetas */
+.checkbox-container {
+    display: flex; /* Usar flexbox para alinear */
+    align-items: center; /* Centrar verticalmente */
+}
+
+input[type="checkbox"] {
+    margin-right: 10px; /* Espacio a la derecha del checkbox */
+}
+
+/* Estilo de los inputs y textareas */
+input[type="text"],
+input[type="password"],
+input[type="date"],
+textarea {
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 20px;
+}
+
+/* Estilos para mensajes */
+div.message {
+    margin-top: 20px; /* Espacio superior para mensajes */
+    padding: 10px; /* Espaciado interno */
+    background-color: #e2e3e5; /* Fondo gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+        padding: 15px; /* Espaciado reducido en pantallas pequeñas */
+    }
+    .form-container {
+        margin-right: 0; /* Sin margen a la derecha en pantallas pequeñas */
+    }
+}
+
+/* Fondo claro para el cuerpo */
+
+/* Espacio entre el panel y otros elementos */
+.card {
+    margin-bottom: 40px; /* Espacio inferior entre paneles */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.158);
+    background-color: #ffffffb4;
+}
+
+.card-header {
+    text-align: center;
+}
+
+/* Asegúrate de que la imagen se ajuste bien */
+.img-fluid {
+    max-width: 100%; /* Asegura que la imagen sea responsiva */
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+#timer {
+    background-color: #f8f9fa; /* Fondo claro */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ced4da; /* Borde gris claro */
+    margin-top: 20px; /* Espacio superior */
+}

@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+{% block title %}Historial de Exámenes{% endblock %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'tesis_app/css/historial.css' %}">
+<h2>Historial de Exámenes</h2>
+
+<!-- Filtro por fecha y tipo de dengue -->
+<div class="filter-container">
+    <form method="GET" action="{% url 'historial' %}">
+        <label for="fecha_inicio">Fecha de Inicio:</label>
+        <input type="date" id="fecha_inicio" name="fecha_inicio">
+
+        <label for="fecha_fin">Fecha de Fin:</label>
+        <input type="date" id="fecha_fin" name="fecha_fin">
+
+        <label for="tipo_dengue">Tipo de Dengue:</label>
+        <select id="tipo_dengue" name="tipo_dengue">
+            <option value="">--Seleccione--</option>
+            <option value="2">Positivo</option>
+            <option value="1">Negativo</option>
+            <option value="3">Grave</option>
+        </select>
+
+        <button type="submit">Filtrar</button>
+    </form>
+</div>
+
+<!-- Contenedor para permitir el desplazamiento horizontal -->
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha de examen</th>
+                <th>Resultado</th>
+                <th>Tiempo de Detección</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for examen in examenes %}
+            <tr>
+                <td>{{ examen.created }}</td>
+                <td>{% if examen.resultado == '1' %}
+                    Negativo
+                {% elif examen.resultado == '2' %}
+                    Positivo
+                {% elif examen.resultado == '3' %}
+                    Dengue Grave
+                {% else %}
+                    Desconocido
+                {% endif %}</td>
+                <td>{{ examen.tiempo_deteccion }}</td>
+                <td>
+                    <a href="{% url 'detalle_examen' examen.id %}">Ver Detalles</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay exámenes registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Fila para los gráficos -->
+<div class="row mt-4">
+    <!-- Panel para el gráfico de distribución -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Número de Casos de Dengue</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="dengueChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel para el gráfico de casos por tipo -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Casos de Dengue por Tipo</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="tipoDengueChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Panel para el gráfico de números -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Número Total de Casos</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="totalCasosChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('dengueChart').getContext('2d');
+const dengueChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Infectados', 'Negativos'],
+        datasets: [{
+            label: 'Casos de Dengue',
+            data: [{{ positivos }} + {{ dengue_grave }}, {{ negativos }}], // Sumar positivos y dengue grave
+            backgroundColor: [
+                '#E02B22',  // Color para infectados
+                '#00F53E'   // Color para negativos
+            ],
+            borderColor: [
+                '#E02B22',
+                '#00F53E'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Distribución de Casos de Dengue'
+            }
+        }
+    }
+});
+
+    // Gráfico de casos de dengue por tipo
+    const ctxTipoDengue = document.getElementById('tipoDengueChart').getContext('2d');
+    const tipoDengueChart = new Chart(ctxTipoDengue, {
+        type: 'bar',
+        data: {
+            labels: ['Negativos', 'Positivos', 'Dengue Grave'],
+            datasets: [{
+                label: 'Número de Casos',
+                data: [{{ negativos }}, {{ positivos }}, {{ dengue_grave }}],
+                backgroundColor: [
+                    '#00F53E',  // Color para negativos
+                    '#E02B22',  // Color para positivos
+                    '#FFA500'   // Color para dengue grave
+                ],
+                borderColor: [
+                    '#00F53E',
+                    '#E02B22',
+                    '#FFA500'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Distribución de Casos de Dengue por Tipo'
+                }
+            }
+        }
+    });
+
+
+// Gráfico de total de casos (medio círculo)
+const ctxTotalCasos = document.getElementById('totalCasosChart').getContext('2d');
+const totalCasosChart = new Chart(ctxTotalCasos, {
+    type: 'doughnut',  // Tipo de gráfico doughnut
+    data: {
+        labels: ['Total de Casos Atendidos'],
+        datasets: [{
+            label: 'Número Total de Casos Atendidos',
+            data: [{{ total_atendidos }}, 100 - {{ total_atendidos }}], // Ajusta si el total máximo es diferente
+            backgroundColor: [
+                'rgba(153, 102, 255, 0.5)',  // Color para casos atendidos
+                'rgba(200, 200, 200, 0.3)'    // Color para el fondo
+            ],
+            borderColor: [
+                'rgba(153, 102, 255, 1)',
+                'rgba(200, 200, 200, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        cutout: '70%',  // Ajusta el corte para que parezca un velocímetro
+        rotation: Math.PI,  // Rota el gráfico para que comience desde la parte superior
+        circumference: Math.PI,  // Muestra solo la mitad del gráfico
+        plugins: {
+            legend: {
+                display: false,  // Oculta la leyenda
+            },
+            title: {
+                display: true,
+                text: 'Número Total de Casos Atendidos'
+            }
+        }
+    }
+});
+</script>
+{% endblock %}
